@@ -1,0 +1,1 @@
+export 'package:beematch/models/user_model.dart';
