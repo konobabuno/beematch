@@ -10,6 +10,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget{
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      automaticallyImplyLeading: false,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -20,7 +21,10 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget{
               Navigator.pushNamed(context, AppRoutes.yoRoute);
             }, 
             style: ElevatedButton.styleFrom(maximumSize: const Size(90,40), backgroundColor: const Color(0xFFFA80F4)),
-            child: Row(children:const [ Icon(Icons.person, color: AppTheme.primary), Text('Yo', style: TextStyle(color: AppTheme.primary),)]
+            child: Padding(
+              padding: const EdgeInsets.only(left:3),
+              child: Row(children:const [ Icon(Icons.person, color: AppTheme.primary), Text('Yo', style: TextStyle(color: AppTheme.primary),)]
+              ),
             ),
           ),
         ),
@@ -31,7 +35,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget{
             onPressed:() {
               Navigator.pushNamed(context, AppRoutes.matchesRoute);
             }, 
-            style: ElevatedButton.styleFrom(maximumSize: const Size(110,40), backgroundColor: const Color(0xFFFFED46)),
+            style: ElevatedButton.styleFrom(maximumSize: const Size(110,40), backgroundColor: AppTheme.yellow),
             child: const Text('Matches', style: TextStyle(color: AppTheme.primary),)
             ),
         ),
