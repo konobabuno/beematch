@@ -9,6 +9,7 @@ class Verification extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
+    final controller = TextEditingController();
     return Scaffold(
       backgroundColor: AppTheme.green,
       body: Padding(
@@ -18,7 +19,7 @@ class Verification extends StatelessWidget {
             TextHead(tabController: tabController, color: AppTheme.primary, colortext: AppTheme.green, height: 100, width: 320, text: '¿Cuál fue tu código de verificación?'),
             Container(
               margin: const EdgeInsets.symmetric(vertical: 50),
-              child: CustomTextField(tabController: tabController, color: const Color.fromARGB(191, 35, 37, 44), text: 'Escribe tu código aquí', colortext: AppTheme.primary,)
+              child: CustomTextField(tabController: tabController, color: const Color.fromARGB(191, 35, 37, 44), text: 'Escribe tu código aquí', colortext: AppTheme.primary, controller: controller,)
               ),
 
             Expanded(

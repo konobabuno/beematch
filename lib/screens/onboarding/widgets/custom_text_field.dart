@@ -6,8 +6,10 @@ class CustomTextField extends StatelessWidget {
   final String text;
   final Color color;
   final Color colortext;
+  final TextEditingController? controller;
+  final Function(String)? onChanged;
    
-  const CustomTextField({Key? key, required this.tabController, required this.text, required this.color, required this.colortext}) : super(key: key);
+  const CustomTextField({Key? key, required this.tabController, required this.text, required this.color, required this.colortext, this.controller, this.onChanged}) : super(key: key);
   
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,7 @@ class CustomTextField extends StatelessWidget {
         labelStyle: TextStyle(color: colortext),
         hintStyle: TextStyle(color: color),
       ),
+      onChanged: onChanged,
     );
   }
 }

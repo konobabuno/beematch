@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "435777621070",
+    "project_id": "bee-match",
+    "storage_bucket": "bee-match.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:435777621070:android:f949a9637db82936f1c71f",
+        "android_client_info": {
+          "package_name": "com.example.beematch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "435777621070-t0ns5qlk8f9u268rffmk5in0m3h68dtq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyS92GiFjNAWwYGLr2NUuYIfUgfN3l8dU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "435777621070-t0ns5qlk8f9u268rffmk5in0m3h68dtq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -17,7 +17,7 @@ class YoScreen extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.all(10),
+              padding:const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: AppTheme.green,
                 borderRadius: BorderRadius.circular(15)
@@ -28,7 +28,7 @@ class YoScreen extends StatelessWidget {
                 const TitleEdit(title: '¿Qué estudias?'),
                 Text(user.study, style: const TextStyle(color: Colors.white, fontSize: 20),),
                 const TitleEdit(title: 'Fotos'),
-                            Pictures_List(user: user),
+                picturesList(user: user),
               ],
             )
           ],
@@ -37,7 +37,7 @@ class YoScreen extends StatelessWidget {
     );
   }
 
-  SizedBox Pictures_List({required User user}) {
+  SizedBox picturesList({required User user}) {
     return SizedBox(
             height: 160,
             child: ListView.builder(

@@ -9,6 +9,7 @@ class Info extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
+    final controller = TextEditingController();
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 90.0, horizontal: 30),
@@ -17,7 +18,7 @@ class Info extends StatelessWidget {
             TextHead(tabController: tabController, color: AppTheme.green, colortext: AppTheme.primary, height: 100, width: 300, text: '¿Cuántos años tienes?'),
             Container(
               margin: const EdgeInsets.symmetric(vertical: 50),
-              child: CustomTextField(tabController: tabController, color: const Color.fromARGB(154, 2, 255, 162), text: 'Escribe tu edad aquí', colortext: AppTheme.green,)
+              child: CustomTextField(tabController: tabController, color: const Color.fromARGB(154, 2, 255, 162), text: 'Escribe tu edad aquí', colortext: AppTheme.green,controller: controller,)
               ),
             Expanded(
               child: Align(

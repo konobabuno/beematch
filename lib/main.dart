@@ -1,12 +1,17 @@
+import 'package:beematch/blocs/auth/auth_bloc.dart';
 import 'package:beematch/config/app_router.dart';
 import 'package:beematch/config/theme.dart';
+import 'package:beematch/repositories/auth_repository.dart';
 import 'package:beematch/screens/home/home_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'blocs/blocs.dart';
 import 'models/models.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -16,18 +21,30 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return 
-    MultiBlocProvider(
+    MultiRepositoryProvider(
       providers: [
-        BlocProvider(
-          create: (_) => SwipeBloc()..add(LoadUsers(users: User.users)),
-        ),
+        RepositoryProvider(
+          create: (_)=> AuthRepository(),
+        )
       ],
-      child: MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.initialRoute,
-      routes: AppRoutes.getAppRoutes(),
-      theme: AppTheme.theme,
-      home: const HomeScreen(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (_)=>AuthBloc(
+            authRepository: context.read<AuthRepository>(),
+            ),
+          ),
+          BlocProvider(
+            create: (_) => SwipeBloc()..add(LoadUsers(users: User.users)),
+          ),
+        ],
+        child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: AppRoutes.onBoardingRoute,
+        routes: AppRoutes.getAppRoutes(),
+        theme: AppTheme.theme,
+        home: const HomeScreen(),
+        ),
       ),
     );
 
