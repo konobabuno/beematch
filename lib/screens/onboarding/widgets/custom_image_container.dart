@@ -1,5 +1,7 @@
 import 'package:beematch/config/theme.dart';
+import 'package:beematch/repositories/storage/storage_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CustomImageContainer extends StatelessWidget {
   final TabController tabController;
@@ -30,7 +32,24 @@ class CustomImageContainer extends StatelessWidget {
             padding: const EdgeInsets.all(1.0),
             child: IconButton(
               iconSize: 40,
-              icon: const Icon(Icons.add_circle, color: AppTheme.green,), onPressed: () {},
+              icon: const Icon(Icons.add_circle, color: AppTheme.green,), 
+                onPressed: () async {
+                  ImagePicker _picker = ImagePicker();
+                  final XFile? _image = 
+                    await _picker.pickImage(source: ImageSource.gallery);
+                    
+                  if (_image == null){
+                    ScaffoldMessenger.of(context).showSnackBar(
+                       const SnackBar(content: Text('Ninguna imagen fue seleccionada')
+                      ));
+                  }
+
+                  if (_image != null){
+                    print('Uploading ...');
+                    StorageRepository().uploadImage(_image);  
+                  }
+                
+              },
             ),
           )
         ),
