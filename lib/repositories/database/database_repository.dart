@@ -9,46 +9,39 @@ class DatabaseRepository extends BaseDatabaseRepository {
   @override
   Stream<User> getUser(String userId) {
     return _firebaseFirestore
-    .collection('users')
-    .doc(userId)
-    .snapshots()
-    .map((snap) => User.fromSnapshot(snap));
+        .collection('users')
+        .doc(userId)
+        .snapshots()
+        .map((snap) => User.fromSnapshot(snap));
   }
 
   @override
   Future<void> updateUserPictures(User user, String imageName) async {
-    String downloadUrl = await StorageRepository().getDownloadURL(user, imageName);
+    String downloadUrl =
+        await StorageRepository().getDownloadURL(user, imageName);
     print(downloadUrl);
 
     return _firebaseFirestore
-      .collection('users')
-      .doc(user.id)
-      .update({'imageUrls': FieldValue.arrayUnion([downloadUrl]),})
-      .then((_) => print('Success'))
-      .catchError((error) => print('Failed: $error'));
+        .collection('users')
+        .doc(user.id)
+        .update({
+          'imageUrls': FieldValue.arrayUnion([downloadUrl]),
+        })
+        .then((_) => print('Success'))
+        .catchError((error) => print('Failed: $error'));
   }
-  
+
   @override
-  Future<String> createUser(User user) async{
-    String documentId = await _firebaseFirestore
-      .collection('users')
-      .add(user
-      .toMap())
-      .then((value){
-        print('Usuario agregado, ID: ${value.id}');
-        return value.id;
-    });
-    return documentId; 
+  Future<void> createUser(User user) async {
+    await _firebaseFirestore.collection('users').doc(user.id).set(user.toMap());
   }
-  
+
   @override
   Future<void> updateUser(User user) {
     return _firebaseFirestore
-      .collection('users')
-      .doc(user.id)
-      .update(user.toMap())
-      .then((value) => 
-        print('Documento del usuario actualizado'));
-
+        .collection('users')
+        .doc(user.id)
+        .update(user.toMap())
+        .then((value) => print('Documento del usuario actualizado'));
   }
 }

@@ -25,19 +25,8 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
 
   void _onStartOnboarding(
       StartOnboarding event, Emitter<OnboardingState> emit) async {
-    User user = const User(
-        id: '',
-        name: '',
-        age: 0,
-        gender: '',
-        imageUrls: [],
-        question: '',
-        find: '',
-        study: '',
-        location: '');
-
-    String documentId = await _databaseRepository.createUser(user);
-    emit(OnboardingLoaded(user: user.copyWith(id: documentId)));
+    await _databaseRepository.createUser(event.user);
+    emit(OnboardingLoaded(user: event.user));
   }
 
   void _onUpdateUser(UpdateUser event, Emitter<OnboardingState> emit) {
