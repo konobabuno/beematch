@@ -1,3 +1,5 @@
+export 'package:beematch/screens/onboarding/onboarding_screens/question_screen.dart';
+export 'package:beematch/screens/onboarding/onboarding_screens/place_screen.dart';
 export 'package:beematch/screens/onboarding/onboarding_screens/study_screen.dart';
 export 'package:beematch/screens/onboarding/onboarding_screens/pictures_screen.dart';
 export 'package:beematch/screens/onboarding/onboarding_screens/info_screen.dart';

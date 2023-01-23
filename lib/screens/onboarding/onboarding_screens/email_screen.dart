@@ -44,9 +44,9 @@ class Email extends StatelessWidget {
                         tabController: tabController,
                         color: AppTheme.green,
                         colortext: AppTheme.primary,
-                        height: 52,
+                        height: 90,
                         width: 320,
-                        text: 'Pon una contraseña'),
+                        text: 'Escribe una contraseña'),
                     Container(
                         margin: const EdgeInsets.symmetric(vertical: 50),
                         child: CustomTextField(

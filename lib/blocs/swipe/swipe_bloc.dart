@@ -9,45 +9,28 @@ part 'swipe_state.dart';
 
 
 class SwipeBloc extends Bloc<SwipeEvent, SwipeState> {
-  SwipeBloc() : super(SwipeLoading());
-  @override
-  Stream<SwipeState> mapEventToState(
-    SwipeEvent event,
-  )async*{
-    if( event is LoadUsers ){
-      yield* _mapLoadUsersToState(event);
-    }
-    if( event is SwipeLeft){
-      yield* _mapSwipeLeftToState(event, state);
-    }
-    if( event is SwipeRight){
-      yield* _mapSwipeRightToState(event, state);
-    }
+  SwipeBloc() : super(SwipeLoading()){
+    on<LoadUsers>(_onLoadUsers);
+    on<SwipeLeft>(_onSwipeLeft);
+    on<SwipeRight>(_onSwipeRight);
   }
-  
-  Stream<SwipeState> _mapLoadUsersToState(LoadUsers event) async* {
-    yield SwipeLoaded(users: event.users);
-  }
-  Stream<SwipeState> _mapSwipeLeftToState(
-  SwipeLeft event, SwipeState state) async* {
-    if (state is SwipeLoaded) {
-      try{
-        yield SwipeLoaded(users: List.from(state.users)..remove(event.user));
-      }catch(_){
 
-      }
-      
-    }
+  void _onLoadUsers(LoadUsers event, Emitter<SwipeState> emit){
+    emit(SwipeLoaded(users: event.users));
   }
-  Stream<SwipeState> _mapSwipeRightToState(
-  SwipeRight event, SwipeState state) async* {
-    if (state is SwipeLoaded) {
+
+  void _onSwipeLeft(SwipeLeft event, Emitter<SwipeState> emit){
+    final state = this.state as SwipeLoaded;
       try{
-        yield SwipeLoaded(users: List.from(state.users)..remove(event.user));
-      }catch(_){
-        
-      }
-      
-    }
+        emit(SwipeLoaded(users: List.from(state.users)..remove(event.user)));
+      }catch(_){}
   }
+
+  void _onSwipeRight(SwipeRight event, Emitter<SwipeState> emit){
+      final state = this.state as SwipeLoaded;
+        try{
+          emit(SwipeLoaded(users: List.from(state.users)..remove(event.user)));
+        }catch(_){}
+    }
+
 }

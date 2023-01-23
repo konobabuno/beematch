@@ -1,4 +1,4 @@
-import 'package:beematch/repositories/auth_repository.dart';
+import 'package:beematch/repositories/auth/auth_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 

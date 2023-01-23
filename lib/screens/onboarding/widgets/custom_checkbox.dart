@@ -4,20 +4,27 @@ class CustomCheckBox extends StatelessWidget {
   final TabController tabController;
   final String text;
   final Color color;
+  final bool value;
+  final Function (bool?)? onChanged;
    
-  const CustomCheckBox({Key? key, required this.tabController, required this.text, required this.color}) : super(key: key);
+  const  CustomCheckBox({
+    Key? key, 
+    required this.tabController, 
+    required this.text,
+    required this.value,
+    required this.onChanged, 
+    required this.color}) : super(key: key);
   
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Checkbox(
-          value: false, 
+          value: value, 
           checkColor: color,
           activeColor: color,
           side: BorderSide(color: color),
-          onChanged: (bool? newValue) {},
-
+          onChanged: onChanged,
         ),
         Text(text, style: TextStyle(color: color, fontSize: 18),)
       ],

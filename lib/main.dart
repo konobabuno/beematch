@@ -1,7 +1,8 @@
-import 'package:beematch/blocs/auth/auth_bloc.dart';
+
 import 'package:beematch/config/app_router.dart';
 import 'package:beematch/config/theme.dart';
-import 'package:beematch/repositories/auth_repository.dart';
+import 'repositories/repositories.dart';
+
 import 'package:beematch/screens/home/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
