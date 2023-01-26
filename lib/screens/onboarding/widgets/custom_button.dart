@@ -45,6 +45,7 @@ class CustomButton extends StatelessWidget {
               study: '',
               location: '');
 
+          // ignore: use_build_context_synchronously
           context.read<OnboardingBloc>().add(
                 StartOnboarding(user: user),
               );

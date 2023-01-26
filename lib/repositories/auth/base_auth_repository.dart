@@ -6,6 +6,5 @@ abstract class BaseAuthRepository {
     required String email,
     required String password,
   });
-  @override
   Future<void> signOut();
 }

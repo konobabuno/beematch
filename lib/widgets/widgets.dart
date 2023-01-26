@@ -1,3 +1,5 @@
+export 'package:beematch/widgets/custom_login_button.dart';
+export 'package:beematch/widgets/text_head.dart';
 export 'package:beematch/widgets/custom_appbar_p.dart';
 export 'package:beematch/widgets/custom_appbar_c.dart';
 export 'package:beematch/widgets/user_image.dart';

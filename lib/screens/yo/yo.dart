@@ -1,3 +1,4 @@
+import 'package:beematch/blocs/blocs.dart';
 import 'package:beematch/config/theme.dart';
 import 'package:beematch/models/models.dart';
 import 'package:beematch/repositories/repositories.dart';
@@ -10,45 +11,58 @@ class YoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final User user = User.users[0];
     return Scaffold(
         appBar: const CustomAppBarP(),
         body: Container(
           alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(vertical: 20),
-          child: Column(
-            children: [
-              Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      color: AppTheme.green,
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Text(user.name,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                          color: AppTheme.primary,
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold))),
-              Column(
-                children: [
-                  const TitleEdit(title: '¿Qué estudias?'),
-                  Text(
-                    user.study,
-                    style: const TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                  const TitleEdit(title: 'Fotos'),
-                  picturesList(user: user),
-                  TextButton(
-                      onPressed: () {
-                        RepositoryProvider.of<AuthRepository>(context)
-                            .signOut();
-                      },
-                      child: const Center(
-                        child: Text('Log Out'),
-                      ))
-                ],
-              )
-            ],
+          child: BlocBuilder<ProfileBloc, ProfileState>(
+            builder: (context, state) {
+              if (state is ProfileLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (state is ProfileLoaded) {
+                return Column(
+                  children: [
+                    Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            color: AppTheme.green,
+                            borderRadius: BorderRadius.circular(15)),
+                        child: Text(state.user.name,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                                color: AppTheme.primary,
+                                fontSize: 40,
+                                fontWeight: FontWeight.bold))),
+                    Column(
+                      children: [
+                        const TitleEdit(title: '¿Qué estudias?'),
+                        Text(
+                          state.user.study,
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 20),
+                        ),
+                        const TitleEdit(title: 'Fotos'),
+                        picturesList(user: state.user),
+                        TextButton(
+                            onPressed: () {
+                              RepositoryProvider.of<AuthRepository>(context)
+                                  .signOut();
+                            },
+                            child: const Center(
+                              child: Text('Log Out'),
+                            ))
+                      ],
+                    )
+                  ],
+                );
+              } else {
+                return const Text('Algo salió mal, reinicia la app porfavor');
+              }
+            },
           ),
         ));
   }
