@@ -11,33 +11,62 @@ class User extends Equatable {
   final String find;
   final String study;
   final String location;
+  final List<String>? swipeLeft;
+  final List<String>? swipeRight;
+  final List<String>? matches;
 
-  const User(
-      {this.id,
-      required this.name,
-      required this.age,
-      required this.gender,
-      required this.imageUrls,
-      required this.question,
-      required this.find,
-      required this.study,
-      required this.location});
+  const User({
+    this.id,
+    required this.name,
+    required this.age,
+    required this.gender,
+    required this.imageUrls,
+    required this.question,
+    required this.find,
+    required this.study,
+    required this.location,
+    this.swipeLeft,
+    this.swipeRight,
+    this.matches,
+  });
 
   @override
-  List<Object?> get props =>
-      [id, name, age, gender, imageUrls, question, find, study, location];
+  List<Object?> get props => [
+        id,
+        name,
+        age,
+        gender,
+        imageUrls,
+        question,
+        find,
+        study,
+        location,
+        swipeLeft,
+        swipeRight,
+        matches
+      ];
 
   static User fromSnapshot(DocumentSnapshot snap) {
     User user = User(
-        id: snap.id,
-        name: snap['name'],
-        age: snap['age'],
-        gender: snap['gender'],
-        imageUrls: snap['imageUrls'],
-        question: snap['question'],
-        find: snap['find'],
-        study: snap['study'],
-        location: snap['location']);
+      id: snap.id,
+      name: snap['name'],
+      age: snap['age'],
+      gender: snap['gender'],
+      imageUrls: snap['imageUrls'],
+      question: snap['question'],
+      find: snap['find'],
+      study: snap['study'],
+      location: snap['location'],
+      swipeLeft: (snap['swipeLeft'] as List)
+          .map((swipeLeft) => swipeLeft as String)
+          .toList(),
+      swipeRight: (snap['swipeRight'] as List)
+          .map((swipeRight) => swipeRight as String)
+          .toList(),
+      matches: (snap['matches'] as List)
+          .map((matches) => matches as String)
+          .toList(),
+    );
 
     return user;
   }
@@ -51,7 +80,10 @@ class User extends Equatable {
       'question': question,
       'find': find,
       'study': study,
-      'location': location
+      'location': location,
+      'swipeLeft': swipeLeft,
+      'swipeRight': swipeRight,
+      'matches': matches,
     };
   }
 
@@ -65,17 +97,24 @@ class User extends Equatable {
     String? find,
     String? study,
     String? location,
+    List<String>? swipeLeft,
+    List<String>? swipeRight,
+    List<String>? matches,
   }) {
     return User(
-        id: id ?? this.id,
-        name: name ?? this.name,
-        age: age ?? this.age,
-        gender: gender ?? this.gender,
-        imageUrls: imageUrls ?? this.imageUrls,
-        question: question ?? this.question,
-        find: find ?? this.find,
-        study: study ?? this.study,
-        location: location ?? this.location);
+      id: id ?? this.id,
+      name: name ?? this.name,
+      age: age ?? this.age,
+      gender: gender ?? this.gender,
+      imageUrls: imageUrls ?? this.imageUrls,
+      question: question ?? this.question,
+      find: find ?? this.find,
+      study: study ?? this.study,
+      location: location ?? this.location,
+      swipeLeft: swipeLeft ?? this.swipeLeft,
+      swipeRight: swipeRight ?? this.swipeRight,
+      matches: matches ?? this.matches,
+    );
   }
 
   static List<User> users = [

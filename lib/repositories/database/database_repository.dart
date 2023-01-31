@@ -17,12 +17,16 @@ class DatabaseRepository extends BaseDatabaseRepository {
 
   @override
   Stream<List<User>> getUsers(
-    String userId,
-    String gender,
+    User user,
   ) {
+    List<String> userFilter = List.from(user.swipeLeft!)
+      ..addAll(user.swipeRight!)
+      ..add(user.id!);
+
     return _firebaseFirestore
         .collection('users')
-        .where('gender', isNotEqualTo: gender)
+        .where('gender', isEqualTo: 'Female')
+        .where(FieldPath.documentId, whereNotIn: userFilter)
         .snapshots()
         .map((snap) {
       return snap.docs.map((doc) => User.fromSnapshot(doc)).toList();
@@ -57,5 +61,22 @@ class DatabaseRepository extends BaseDatabaseRepository {
         .doc(user.id)
         .update(user.toMap())
         .then((value) => print('Documento del usuario actualizado'));
+  }
+
+  @override
+  Future<void> updateUserSwipe(
+    String userId,
+    String matchId,
+    bool isSwipeRight,
+  ) async {
+    if (isSwipeRight) {
+      await _firebaseFirestore.collection('users').doc(userId).update({
+        'swipeRight': FieldValue.arrayUnion([matchId])
+      });
+    } else {
+      await _firebaseFirestore.collection('users').doc(userId).update({
+        'swipeLeft': FieldValue.arrayUnion([matchId])
+      });
+    }
   }
 }

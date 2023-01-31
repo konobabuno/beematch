@@ -37,8 +37,8 @@ class AppRoutes {
               ? LoginScreen()
               : HomeScreen()
     });
-    appRoutes
-        .addAll({'splash': (BuildContext context) => const SplashScreen()});
+    // appRoutes
+    //     .addAll({'splash': (BuildContext context) => const SplashScreen()});
 
     return appRoutes;
   }
